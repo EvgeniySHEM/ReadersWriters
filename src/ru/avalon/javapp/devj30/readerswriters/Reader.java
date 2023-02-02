@@ -8,8 +8,11 @@ public class Reader extends AbstractPerson {
     @Override
     public void run() {
         while (true) {
-            System.out.println(this.getName() + " waiting for connection to the database");
-            database.reading(this);
+            try {
+                imitateAction(100, 500);
+                database.reading(this);
+            } catch (InterruptedException e) {
+            }
             imitateAction(200, 500);
         }
     }

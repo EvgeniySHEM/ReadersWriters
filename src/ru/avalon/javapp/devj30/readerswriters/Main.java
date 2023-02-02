@@ -1,25 +1,19 @@
 package ru.avalon.javapp.devj30.readerswriters;
 
-import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
         Database database = new Database();
+        ExecutorService executorService = Executors.newFixedThreadPool(9);
 
-        AbstractPerson[] people = {
-                new Writer(database, "w1"),
-                new Writer(database, "w2"),
-                new Writer(database, "w3"),
-                new Reader(database, "r1"),
-                new Reader(database, "r2"),
-                new Reader(database, "r3"),
-                new Reader(database, "r4"),
-                new Reader(database, "r5"),
-                new Reader(database, "r6")
-        };
+        for (int i = 1; i <= 3; i++) {
+            executorService.submit(new Writer(database,"w" + i ));
+        }
 
-        for (AbstractPerson p : people) {
-            p.start();
+        for (int i = 1; i <= 6; i++) {
+            executorService.submit(new Reader(database,"r" + i ));
         }
     }
 }

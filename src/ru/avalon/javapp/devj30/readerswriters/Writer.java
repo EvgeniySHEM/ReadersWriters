@@ -9,9 +9,8 @@ public class Writer extends AbstractPerson {
     @Override
     public void run() {
         while (true) {
-            System.out.println(this.getName() + " waiting for connection to the database");
-            database.write(this);
             imitateAction(200, 800);
+            database.write(this);
         }
     }
 }
